@@ -10,11 +10,11 @@ import os
 spark = SparkSession.builder.appName('hacking-analysis').getOrCreate()
 
 #Getting K as variable from user
-n = int(sys.arg[1])
+n = int(sys.argv[1])
 
 #Getting Current Path
 cwd = os.getcwd()
-path = 'file:///'+cwd+'hack.csv'
+path = 'file:///'+cwd+'/hack.csv'
 
 #Reading data From HDFS
 data = spark.read.csv(path, header=True, inferSchema=True)
@@ -22,7 +22,7 @@ data = spark.read.csv(path, header=True, inferSchema=True)
 #Renaming the Column To Match File
 data = data.withColumnRenamed('Bytes Transferred', 'Bytes_Transferred')
 
-cols = ['Session_Connection_Time', 'Bytes Transferred', 'Kali_Trace_Used', 'Servers_Corrupted', 
+cols = ['Session_Connection_Time', 'Bytes_Transferred', 'Kali_Trace_Used', 'Servers_Corrupted',
 'Pages_Corrupted', 'WPM_Typing_Speed']
 
 #Assembling The Features
